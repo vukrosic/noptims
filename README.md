@@ -38,6 +38,19 @@ YouTube course [Code, Write & Publish AI Research Paper - Full Course - Muon vs 
    - Builds PyTorch `DataLoader`s, initializes the MoE LLM, and trains with mixed precision plus gradient clipping.
    - Logs metrics to both stdout and `./logs`, evaluates every `eval_every` steps, and saves the final checkpoint to `./checkpoints/final_model.pt`.
 
+## Running Experiments
+- Baseline Muon vs AdamW suite (uses configs in `experiments/exp1_muon_vs_adam/exp_configs`):
+  ```bash
+  python experiments/exp1_muon_vs_adam/run_experiments.py \
+      --output_dir outputs/muon_vs_adam --config experiment_configs:base
+  ```
+- Learning-rate sweeps:
+  ```bash
+  python experiments/exp1_muon_vs_adam/run_adam_lr_sweep.py --output_dir outputs/adam_lr_sweep
+  python experiments/exp1_muon_vs_adam/run_optimal_muon_suite.py --output_dir outputs/muon_suite
+  ```
+- Results include JSON metrics, plots, and checkpoints under the chosen `output_dir`. Flags such as `--max_steps`, `--num_trials`, and config overrides are available inside each script for further tuning.
+
 ## Customization Tips
 - **Model shape**: Edit `configs/moe_config.py` to adjust depth, width, expert count, or optimizer hyperparameters. The config dataclass computes derived dimensions and asserts valid settings.
 - **Dataset/tokenizer**: Update `DataConfig` inside `train_moe.py` or create a new config module referencing different Hugging Face datasets, custom preprocessing callbacks, or cached on-disk datasets.
