@@ -6,6 +6,9 @@ __pycache__/
 # C extensions
 *.so
 
+hf_cache/
+checkpoints/
+
 # Distribution / packaging
 .Python
 build/
